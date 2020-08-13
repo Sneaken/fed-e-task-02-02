@@ -13,18 +13,23 @@ class Observe {
 
   defineReactive(obj, key, val) {
     let _this = this;
+    let dep = new Dep();
     // 如果val是对象，把val内部的属性转换成响应式
     this.walk(val);
     Object.defineProperty(obj, key, {
       enumerable: true,
       configurable: true,
       get() {
+        //收集依赖
+        Dep.target && dep.addSub(Dep.target);
         return val; // 如果使用 obj[key] 会发生死递归
       },
       set(newValue) {
         if (newValue === val) return;
         val = newValue;
         _this.walk(newValue);
+        // 发送通知
+        dep.notify();
       }
     });
   }

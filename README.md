@@ -28,7 +28,7 @@
 
 ```js
 let vm = new Vue({
-  el: '#el'
+  el: '#el',
   data: {
     o: 'object',
     dog: {}
