@@ -19,5 +19,6 @@ class Watch {
     let newValue = this.vm[this.key];
     if (this.oldValue === newValue) return;
     this.cb(newValue);
+    this.oldValue = newValue;
   }
 }
